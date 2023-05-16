@@ -1,0 +1,130 @@
+{% extends "iRacingInsights/base.html" %}
+{% load static %}
+{% load irstats_extras %}
+
+{% block title %}iRacing Stats | {{ block.super }}{% endblock %}
+{% block meta-description %}Member Profile{% endblock %}
+{% block meta-keywords %}{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content_main %}
+
+    <h1 class="display-4 text-uppercase" title="{{ subsession_id }}">{{ session.track_name }}</h1>
+        <h3>{{ session.launch_at }}</h3>
+    </div>
+
+    <h2>Session Results</h2>
+
+    {% if simsessions %}
+
+        {% for session in simsessions reversed %}
+
+            <h4 class="text-uppercase">{{ session.simsession_name }}</h4>
+
+            <table class="table table-striped table-bordered table-sm ">
+            <thead>
+                <tr class="table-info">
+
+                    <th class="text-end col-1">#</th>
+                    <th class="text-center">Name</th>
+
+                    {% if session.simsession_type != 99 %}
+                        <th class="text-center col-1">Avg Lap</th>
+                        <th class="text-center col-1">Fastest Lap</th>
+                        <th class="text-center col-1">Laps Complete</th>
+                        <th class="text-center col-1">Incidents</th>
+                    {% endif %}
+
+                    {% if session.simsession_type == 5 or session.simsession_type == 6 %}
+                        <th class="text-center col-1">Laps Lead</th>
+                        <th class="text-center col-1">Add Points.</th>
+                    {% endif %}
+
+                    {% if session.simsession_type == 99 %}
+                        <th class="text-center col-1">Avg Position</th>
+                        <th class="text-center col-1">Avg Lap Time</th>
+                        <th class="text-center col-1">Fastest Lap</th>
+                        <th class="text-center col-1">Total Points</th>
+                        <th class="text-center col-1">Total Incidents</th>
+                    {% endif %}
+
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for result in session.results %}
+
+                    <tr>
+                        {% if session.simsession_type == 99 %}
+                            <th class="text-end">{{ forloop.counter }}</th>
+                        {% else %}
+                             <th class="text-end">{{ result.finish_position|add:1 }}</th>
+                        {% endif %}
+
+
+
+                        <td class="text-center">{{ result.display_name }}</td>
+
+                        {% if session.simsession_type != 99 %}
+                            <td class="text-center">{{ result.average_lap|convertTime }}</td>
+                            <td class="text-center {% if result.fast_lap %}table-danger{% endif %} ">{{ result.best_lap_time|convertTime }}</td>
+                            <td class="text-center">{{ result.laps_complete }}</td>
+                            <td class="text-center {% if result.incidents == 0 %}table-success{% endif %} ">{{ result.incidents }}</td>
+                        {% endif %}
+
+                        {%  if session.simsession_type == 5 or session.simsession_type == 6 %}
+                            <td class="text-center">{{ result.laps_lead }}</td>
+                            <td class="text-center">{{ result.points }}</td>
+                        {% endif %}
+
+                        {% if session.simsession_type == 99 %}
+                            <td class="text-center">{{ result.finish_position }}</td>
+                            <td class="text-center">{{ result.average_lap|convertTime  }}</td>
+                            <td class="text-center {% if result.fast_lap %}table-danger{% endif %} ">{{ result.best_lap_time|convertTime }}</td>
+                            <td class="text-center">{{ result.points }}</td>
+                            <td class="text-center {% if result.incidents == 0 %}table-success{% endif %} ">{{ result.incidents }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+            </table>
+
+            {% if session.events %}
+                <table class="table table-striped table-bordered table-sm ">
+                    <thead>
+                        <tr class="table-info">
+                            <th class="text-center">#</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Message</th>
+                            <th class="text-center">Lap No.</th>
+                            <th class="text-center">Time.</th>
+                            <th class="text-center">Event Seq.</th>
+                            <th class="text-center">Event Code.</th>
+                        </tr>
+                    </thead>
+                    {% for event in session.events %}
+                        <tr>
+                            <td class="text-center">{{ forloop.counter }}</td>
+                            <td>{{ event.display_name }}</td>
+                            <td>{{ event.message }}</td>
+                            <td class="text-center">{{ event.lap_number }}</td>
+                            <td class="text-center">{{ event.session_time|convertTime }}</td>
+                            <td class="text-center">{{ event.event_seq }}</td>
+                            <td class="text-center">{{ event.event_code }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            {% endif %}
+
+        {% endfor %}
+
+    {% else %}
+        <p>No results to render</p>
+    {% endif %}
+
+    {{ session_events }}
+
+{%  endblock %}

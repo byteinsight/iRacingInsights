@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+
+        <!-- No analytics required. -->
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>{% block title %}iRacing Stats{% endblock %}</title>
+		<meta name="description" content="{% block meta-description %}iRacing Stats{% endblock %}" />
+		<meta name="keywords" content="{% block meta-keywords %}iRacing Stats{% endblock %}" />
+		<meta name="author" content="humans.txt">
+
+		<!-- Bootstrap core CSS, Custom CSS and FavIcons-->
+		{% load static %}
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <link rel="icon" href="{% static '/images/byteinsight22D_Avatar_C.png' %}" />
+		{% block custom_css %}{% endblock %}
+
+	</head>
+
+	<body class="{% block bodyclass %}index{% endblock %}">
+
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/"><img height="60px" src="{% static '/images/byteinsight22D_Avatar_C.png' %}"></a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			  		<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+					<ul class="navbar-nav me-auto mb-2 mb-md-0">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/">Home</a>
+						</li>
+                        <li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/tracks">Tracks</a>
+						</li>
+                        <li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/cars">Cars</a>
+						</li>
+                        <li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/series">Series</a>
+						</li>
+                        <li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/leagues">Leagues</a>
+						</li>
+                        <li class="nav-item">
+							<a class="nav-link" href="/docs">Docs</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/admin">Admin</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<main class="container">
+
+			{% block content_main %}This should be overridden by a template and view.{% endblock %}
+
+		</main>
+
+
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+
+		{% block custom_scripts %}{% endblock %}
+	</body>
+</html>

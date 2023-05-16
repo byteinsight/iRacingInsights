@@ -1,0 +1,48 @@
+{% extends "iRacingInsights/base.html" %}
+{% load static %}
+
+{% block title %}iRacing Stats | {{ block.super }}{% endblock %}
+{% block meta-description %}Member Profile{% endblock %}
+{% block meta-keywords %}{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content_main %}
+
+    <div class="bg-light p-2 rounded">
+        <h1>Status.</h1>
+    </div>
+
+
+    {% if apidoc %}
+
+        {% for api_key, api_values in apidoc.items %}
+            <h3 class="text-uppercase">{{ api_key }}</h3>
+            {% if 'link' in api_values %}
+                {{ api_values.link }}
+            {% else %}
+                {% for sub_api_key, sub_api_values in api_values.items %}
+                    <table class="table table-sm">
+                        <thead class="table-dark"><tr><th colspan="2">{{ sub_api_key }}</th></tr></thead>
+                        {% for key, value in sub_api_values.items %}
+                            <tr>
+                                <th class="col-2">{{ key }}</th>
+                                {%  if key == "parameters" %}
+                                    <td><ul>
+                                    {% for pkey, pvalue in value.items %}
+                                        <li><strong>{{ pkey }}:</strong> ({{ pvalue.type }}) <em>{{ pvalue.note }}</em></li>
+
+                                    {%  endfor %}
+                                    </ul></td>
+                                {% else %}
+                                    <td>{{ value }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {%  endfor %}
+            {%  endif %}
+        {%  endfor %}
+
+    {% endif %}
+{%  endblock %}

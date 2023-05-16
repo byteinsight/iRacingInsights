@@ -1,0 +1,48 @@
+{% extends "iRacingInsights/base.html" %}
+{% load static %}
+{% load irstats_extras %}
+
+{% block title %}iRacing Stats | {{ block.super }}{% endblock %}
+{% block meta-description %}Member Profile{% endblock %}
+{% block meta-keywords %}{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content_main %}
+
+
+    <h1 class="display-4 text-uppercase">{{ configs.first.track_name }}</h1>
+    <p>{{ configs.first.time_zone }}</p>
+    <p>Created {{ configs.first.created }}</p>
+
+
+    {% if configs %}
+        <div class="row row-cols-4">
+            {% for config in configs %}
+                <div class="col">
+
+                    <div class="card shadow-sm mt-4">
+                        <img src="{% getBannerImage track_assets config.track_id %}" />
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ config.config_name }}</h5>
+                        </div>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">{{ config.search_filters }}</li>
+                            <li class="list-group-item">Length: {{ config.track_config_length }}</li>
+                            <li class="list-group-item">A third item</li>
+                        </ul>
+
+                    </div> <!-- End Card -->
+
+
+                </div> <!-- End Col -->
+            {% endfor %}
+        </div>
+    {%  endif %}
+
+
+
+{%  endblock %}
+

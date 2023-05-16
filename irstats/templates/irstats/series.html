@@ -1,0 +1,38 @@
+{% extends "iRacingInsights/base.html" %}
+{% load static %}
+{% load irstats_extras %}
+
+{% block title %}iRacing Stats | {{ block.super }}{% endblock %}
+{% block meta-description %}Member Profile{% endblock %}
+{% block meta-keywords %}{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content_main %}
+
+    <h1 class="display-4 text-uppercase">Series</h1>
+
+    {% if series_listing %}
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+            {% for serie in series_listing %}
+                 <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="{% getSeriesImage series_assets serie.series_id %}" />
+                        <div class="card-body">
+                            <h5 title="{{ serie.series_id }}}" class="card-title">{{ serie.series_name }}</h5>
+                            <p class="card-text">{{ serie.category }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                  <a href="/series/{{ serie.series_id }}" class="btn btn-sm btn-outline-secondary" role="button" aria-disabled="true">View</a>
+                                </div>
+                                <small class="text-muted">Eligible: {{ serie.eligible }}</small>
+                                <small class="text-muted"></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {%  endif %}
+
+{%  endblock %}

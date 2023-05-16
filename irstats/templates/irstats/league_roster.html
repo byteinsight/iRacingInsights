@@ -1,0 +1,49 @@
+{% extends "iRacingInsights/base.html" %}
+{% load static %}
+
+{% block title %}iRacing Stats | {{ block.super }}{% endblock %}
+{% block meta-description %}Member Profile{% endblock %}
+{% block meta-keywords %}{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content_main %}
+
+
+    <h1 class="display-4 text-uppercase">Roster</h1>
+
+    {% if roster.empty %}
+        <p>Sorry, no roster available. </p>
+    {% else %}
+        <table class="table">
+            <thead>
+                <th>ID.</th>
+                <th>Car No.</th>
+                <th>Name</th>
+                <th>Nick Name</th>
+                <th>Rank AVG</th>
+                <th>Road IR</th>
+                <th>Road SR</th>
+                <th>Road CPI</th>
+            </thead>
+            <tbody>
+                {% for driver in roster %}
+                    <tr>
+                        <th title="{{ driver.cust_id }}"><a href="#">{{ driver.cust_id }}</a></th>
+                        <td>{{ driver.car_number }}</td>
+                        <td>{{ driver.display_name }}</td>
+                        <td>{{ driver.nick_name }}</td>
+                        <td>{{ driver.avg_norm|floatformat:1 }}</td>
+                        <td>{{ driver.category2_irating }} ({{ driver.category2_irating_norm|floatformat:1 }})</td>
+                        <td>{{ driver.category2_safety_rating }} ({{ driver.category2_safety_rating_norm|floatformat:1 }})</td>
+                        <td>{{ driver.category2_cpi }} ({{ driver.category2_cpi_norm|floatformat:1 }})</td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {%  endif %}
+
+{%  endblock %}
+

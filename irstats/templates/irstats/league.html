@@ -1,0 +1,41 @@
+{% extends "iRacingInsights/base.html" %}
+{% load static %}
+
+{% block title %}iRacing Stats | {{ block.super }}{% endblock %}
+{% block meta-description %}Member Profile{% endblock %}
+{% block meta-keywords %}{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content_main %}
+
+
+    <h1 class="display-4 text-uppercase">{{ league.league_name }}</h1>
+    <p>{{ league.about }}</p>
+    <p>{{ league.date_modified }}</p>
+    <p><a href="/league/roster/{{ league.league_id }}">View Roster</a></p>
+
+
+    {% if seasons %}
+        {% for season in seasons %}
+            <h1 class="display-6" title="{{  season.season_id }}"><a href="/league/season/{{ season.id }}">{{ season.season_name }}</a></h1>
+            <ol class="list-group list-group-numbered">
+            {% for session in season.leaguesessions_set.all %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">
+                            <a href="/league/session/{{ session.id }}">{{ session.track_name }}</a>
+                        </div>
+                        on {{ session.launch_at }}
+                    </div>
+                    <span class="badge bg-primary rounded-pill">{{ session.race_length }} mins</span>
+                </li>
+            {%  endfor %}
+            </ol>
+        {% endfor %}
+
+    {%  endif %}
+
+
+{%  endblock %}
+

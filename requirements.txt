@@ -1,0 +1,6 @@
+Django~=4.2.1
+pandas~=2.0.1
+fastf1~=3.0.2
+matplotlib~=3.7.1
+requests~=2.30.0
+numpy~=1.24.2

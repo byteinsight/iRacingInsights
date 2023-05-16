@@ -1,0 +1,96 @@
+{% extends "iRacingInsights/base.html" %}
+{% load static %}
+
+{% block title %}iRacing Stats | {{ block.super }}{% endblock %}
+{% block meta-description %}Member Profile{% endblock %}
+{% block meta-keywords %}{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content_main %}
+
+    <h1 class="display-4 text-uppercase">{{ member_stats.display_name }} iRacing Profile.</h1>
+    <p>Member since {{ member_stats.member_since }} and last seen {{ member_stats.last_login }}</p>
+
+    <h1 class="display-6 text-uppercase">Your Career</h1>
+    {%  if member_career %}
+        <div class="row">
+            {%  for career in member_career %}
+                <div class="col-sm">
+                    <table class="table table-bordered table-sm">
+                        <thead><tr class="table-dark"><th scope="col" colspan="2">{{ career.category.display_name }}</th></tr></thead>
+                        <tbody>
+                            <tr><th>Starts</th><td class="text-center">{{ career.starts }}</td></tr>
+                            <tr><th>Wins</th><td class="text-center">{{ career.wins }}</td></tr>
+                            <tr><th>Top 5</th><td class="text-center">{{ career.top5 }}</td></tr>
+                            <tr><th>Poles</th><td class="text-center">{{ career.poles }}</td></tr>
+                            <tr><th>Start Pos.</th><td class="text-center">{{ career.avg_start_position }}</td></tr>
+                            <tr><th>Finsh Pos.</th><td class="text-center">{{ career.avg_finish_position }}</td></tr>
+                            <tr><th>Laps</th><td class="text-center">{{ career.laps }}</td></tr>
+                            <tr><th>Laps Led</th><td class="text-center">{{ career.laps_led }}</td></tr>
+                            <tr><th>Avg. Inc.</th><td class="text-center">{{ career.avg_incidents }}</td></tr>
+                            <tr><th>Avg. Points</th><td class="text-center">{{ career.avg_points }}</td></tr>
+                            <tr><th>Win %age</th><td class="text-end">{{ career.win_percentage }} &percnt;</td></tr>
+                            <tr><th>Top5 %age.</th><td class="text-end">{{ career.top5_percentage }} &percnt;</td></tr>
+                            <tr><th>Led %age.</th><td class="text-end">{{ career.laps_led_percentage }} &percnt;</td></tr>
+                            <tr><th>Club Points.</th><td class="text-end">{{ career.total_club_points }} &percnt;</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+    {%  endif %}
+
+    <h1 class="display-6 text-uppercase">Recent Races</h1>
+    {% if recent_races %}
+    <table class="table table-striped table-bordered table-sm">
+        <thead>
+            <tr class="table-dark">
+                <th>#</th>
+                <th>Date/Time</th>
+                <th>Series</th>
+                <th>Track</th>
+                <th>Car</th>
+                <th class="text-center">SOF</th>
+                <th class="text-center">Start Pos</th>
+                <th class="text-center">Finish Pos</th>
+                <th class="text-center" style="width: 90px;">Quali Time</th>
+                <th class="text-center" style="width: 90px;">Laps</th>
+                <th class="text-center" style="width: 90px;">Laps Led</th>
+                <th class="text-center" style="width: 90px;">Inc.</th>
+                <th class="text-center" style="width: 90px;">Club Points</th>
+                <th class="text-center" style="width: 90px;">Race Points</th>
+                <th class="text-center" style="width: 90px;">sR</th>
+                <th class="text-center" style="width: 90px;">iR</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for race in recent_races %}
+                <tr>
+                    <th><a href="./race/{{ race.subsession_id }}">{{ race.subsession_id }}</a></th>
+                    <td> {{ race.session_start_time }} </td>
+                    <td> {{ race.series.series_short_name }} </td>
+                    <td> {{ race.track.track_name }} </td>
+                    <td> {{ race.car.car_name_abbreviated }} </td>
+                    <td class="text-center"> {{ race.strength_of_field }} </td>
+                    <td class="text-center"> {{ race.start_position }} </td>
+                    <td class="text-center"> {{ race.finish_position }} </td>
+                    <td class="text-center"> {{ race.qualifying_time }} </td>
+                    <td class="text-center"> {{ race.laps }}</td>
+                    <td class="text-center"> {{ race.laps_led }}</td>
+                    <td class="text-center"> {{ race.incidents }} </td>
+                    <td class="text-center"> {{ race.club_points }} </td>
+                    <td class="text-center"> {{ race.points }} </td>
+                    <td class="text-center"> {{ race.new_sub_level }}</td>
+                    <td class="text-center"> {{ race.newi_rating }}</td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No races to render</p>
+    {% endif %}
+
+{%  endblock %}
+

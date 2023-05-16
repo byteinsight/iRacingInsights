@@ -1,0 +1,19 @@
+{% extends "iRacingInsights/base.html" %}
+{% load static %}
+{% load irstats_extras %}
+
+{% block title %}iRacing Stats | {{ block.super }}{% endblock %}
+{% block meta-description %}Member Profile{% endblock %}
+{% block meta-keywords %}{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content_main %}
+
+    <h1 class="display-4 text-uppercase">{{ series.series_name }}</h1>
+    <p>{{ series.category }}</p>
+
+
+
+
+{%  endblock %}

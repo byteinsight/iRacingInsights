@@ -1,0 +1,40 @@
+{% extends "iRacingInsights/base.html" %}
+{% load static %}
+{% load irstats_extras %}
+
+{% block title %}iRacing Stats | {{ block.super }}{% endblock %}
+{% block meta-description %}Member Profile{% endblock %}
+{% block meta-keywords %}{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content_main %}
+
+    <h1 class="display-6 text-uppercase">Cars</h1>
+
+{% if car_listing %}
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+            {% for car in car_listing %}
+                 <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="{% getBannerImage cars_assets car.car_id %}" />
+                        <div class="card-body">
+                            <h5 title="{{ car.car_name_abbreviated }}}" class="card-title">{{ car.car_name }}</h5>
+                            <p class="card-text">{{ car.search_filters }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                  <a href="/car/{{ car.car_id }}" class="btn btn-sm btn-outline-secondary" role="button" aria-disabled="true">View</a>
+                                </div>
+                                <small class="text-muted">HP: {{ car.hp }}</small>
+                                <small class="text-muted">Created {{ car.created }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    {%  endif %}
+
+{%  endblock %}
+

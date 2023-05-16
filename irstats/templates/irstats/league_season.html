@@ -1,0 +1,48 @@
+{% extends "iRacingInsights/base.html" %}
+{% load static %}
+{% load irstats_extras %}
+
+{% block title %}iRacing Stats | {{ block.super }}{% endblock %}
+{% block meta-description %}Member Profile{% endblock %}
+{% block meta-keywords %}{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content_main %}
+
+    <div class="bg-light p-2 rounded">
+        <h2>{{ season.season_name }}</h2>
+        <h3>{{ season.points_cars }}</h3>
+    </div>
+
+    <h2>Standings</h2>
+    {% if standings %}
+    <table class="table table-striped table-bordered table-sm">
+        <thead>
+            <tr class="table-dark">
+                <th>#</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Total Points</th>
+                <th class="text-center">Best Finish</th>
+                <th class="text-center">Average Finish</th>
+                <th class="text-center">Incidents</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for driver in standings %}
+                <tr>
+                    <th> {{ forloop.counter }} </th>
+                    <td class="text-center"> {{ driver.display_name }} </td>
+                    <td class="text-center"> {{ driver.points }}</td>
+                    <td class="text-center"> {{ driver.best_finish }}</td>
+                    <td class="text-center"> {{ driver.average_finish }}
+                    <td class="text-center"> {{ driver.incidents }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No laps to render</p>
+    {% endif %}
+
+{%  endblock %}

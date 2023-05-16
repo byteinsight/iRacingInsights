@@ -1,0 +1,1474 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<title>iRacingClient.py</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 8954 2022-01-20 10:10:25Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<p>#
+#    Copyright (c) 2022 Chris Davies &lt;<a class="reference external" href="mailto:chris&#64;byteinsight.co.uk">chris&#64;byteinsight.co.uk</a>&gt;
+#
+&quot;&quot;&quot;Main entrance point for iracinginsight.&quot;&quot;&quot;
+import base64
+import hashlib
+import os
+from http.cookiejar import LWPCookieJar</p>
+<p>import datetime
+import requests
+import json</p>
+<dl class="docutils">
+<dt>class iRacingClient():</dt>
+<dd><p class="first">&quot;&quot;&quot;
+run iracinginsight as an unattended program
+&quot;&quot;&quot;</p>
+<p>debug = True
+global_cust_id = None</p>
+<dl class="docutils">
+<dt>def __init__(self, _username, _password, _cust_id, _hive_root=None, _files_folder=None):</dt>
+<dd><p class="first">&quot;&quot;&quot;The init function sets up:
+:param None
+:return: None
+&quot;&quot;&quot;
+self.authenticated = False
+self.session = requests.Session()
+self.base_url = &quot;<a class="reference external" href="https://members-ng.iracing.com">https://members-ng.iracing.com</a>&quot;</p>
+<p>self.username = _username
+self.encoded_password = self._encode_password(_username, _password)
+self.global_cust_id = _cust_id</p>
+<p class="last">self.hive_root = _hive_root
+self.files_folder = _files_folder</p>
+</dd>
+</dl>
+<p>##### PRIVATE CLASS Functions #####</p>
+<p># From iracing client api
+def _encode_password(self, username, password):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 42)</p>
+Unexpected indentation.</div>
+<blockquote>
+initial_hash = hashlib.sha256((password + username.lower()).encode('utf-8')).digest()
+return base64.b64encode(initial_hash).decode('utf-8')</blockquote>
+<p># From iracing client api
+def _login(self, cookie_file=None):</p>
+<blockquote>
+<p>self.printData(&quot;Authenticating with iRacing&quot;)
+if cookie_file:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 50)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>self.session.cookies = LWPCookieJar(cookie_file)
+if not os.path.exists(cookie_file):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 52)</p>
+Unexpected indentation.</div>
+<blockquote>
+self.session.cookies.save()</blockquote>
+<dl class="docutils">
+<dt>else:</dt>
+<dd>self.session.cookies.load(ignore_discard=True)</dd>
+</dl>
+</blockquote>
+<p>headers = {'Content-Type': 'application/json'}
+data = {&quot;email&quot;: self.username, &quot;password&quot;: self.encoded_password}</p>
+<dl class="docutils">
+<dt>try:</dt>
+<dd>r = self.session.post('<a class="reference external" href="https://members-ng.iracing.com/auth">https://members-ng.iracing.com/auth</a>', headers=headers, json=data, timeout=5.0)</dd>
+<dt>except requests.Timeout:</dt>
+<dd>raise RuntimeError(&quot;Login timed out&quot;)</dd>
+<dt>except requests.ConnectionError:</dt>
+<dd>raise RuntimeError(&quot;Connection error&quot;)</dd>
+<dt>else:</dt>
+<dd><p class="first">response_data = r.json()
+if r.status_code == 200 and response_data['authcode']:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 67)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>if cookie_file:</dt>
+<dd>self.session.cookies.save(ignore_discard=True)</dd>
+</dl>
+<p>self.authenticated = True
+return &quot;Logged in&quot;</p>
+</blockquote>
+<dl class="last docutils">
+<dt>else:</dt>
+<dd>raise RuntimeError(&quot;Error from iRacing: &quot;, response_data)</dd>
+</dl>
+</dd>
+</dl>
+</blockquote>
+<p># From iracing client api
+def _build_url(self, endpoint):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 76)</p>
+Unexpected indentation.</div>
+<blockquote>
+return self.base_url + endpoint</blockquote>
+<p># From iracing client api
+def _get_resource_or_link(self, url, payload=None):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 80)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>if not self.authenticated:</dt>
+<dd>self._login()
+return self._get_resource_or_link(url, payload=payload)</dd>
+</dl>
+<p>r = self.session.get(url, params=payload)</p>
+<dl class="docutils">
+<dt>if r.status_code == 401:</dt>
+<dd># unauthorised, likely due to a timeout, retry after a login
+self.authenticated = False</dd>
+<dt>if r.status_code != 200:</dt>
+<dd>raise RuntimeError(r.json())</dd>
+</dl>
+<p>data = r.json()
+if not isinstance(data, list) and &quot;link&quot; in data.keys():</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 94)</p>
+Unexpected indentation.</div>
+<blockquote>
+return [data[&quot;link&quot;], True]</blockquote>
+<dl class="docutils">
+<dt>else:</dt>
+<dd>return [data, False]</dd>
+</dl>
+</blockquote>
+<p># From iracing client api
+def _get_resource(self, endpoint, payload=None):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 100)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>request_url = self._build_url(endpoint)
+resource_obj, is_link = self._get_resource_or_link(request_url, payload=payload)
+if not is_link:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 103)</p>
+Unexpected indentation.</div>
+<blockquote>
+return resource_obj</blockquote>
+<p>r = self.session.get(resource_obj)
+if r.status_code != 200:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 106)</p>
+Unexpected indentation.</div>
+<blockquote>
+raise RuntimeError(r.json())</blockquote>
+<p>return r.json()</p>
+</blockquote>
+<p># From iracing client api
+def _get_chunks(self, chunks):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 111)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>base_url = chunks[&quot;base_download_url&quot;]
+urls = [base_url + x for x in chunks[&quot;chunk_file_names&quot;]]
+list_of_chunks = [self.session.get(url).json() for url in urls]
+output = [item for sublist in list_of_chunks for item in sublist]</p>
+<p>return output</p>
+</blockquote>
+<p>##### BUILDER Functions #####</p>
+<p># Tries to get a cust_id and falls back on self.cust_id.
+# Raises Runtime if none exist.
+def getCustID(self, cust_id):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 123)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>if not cust_id:</dt>
+<dd><dl class="first last docutils">
+<dt>if self.global_cust_id:</dt>
+<dd>return self.global_cust_id</dd>
+<dt>else:</dt>
+<dd>raise RuntimeError(&quot;Please supply a cust_id&quot;)</dd>
+</dl>
+</dd>
+</dl>
+<p>return cust_id</p>
+</blockquote>
+<dl class="docutils">
+<dt>def printData(self, data):</dt>
+<dd><dl class="first last docutils">
+<dt>if self.debug:</dt>
+<dd>print(data)</dd>
+</dl>
+</dd>
+<dt>def rawToJson(self, export_path, raw_data):</dt>
+<dd><dl class="first last docutils">
+<dt>with open(export_path, 'w', encoding='utf-8') as f:</dt>
+<dd>json.dump(raw_data, f, ensure_ascii=False, indent=4)</dd>
+</dl>
+</dd>
+</dl>
+<p>##### API Query Functions #####</p>
+<p>##### CARS #####</p>
+<p>#  Car Assets
+def get_cars_assets(self, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 145)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot;
+:link <a class="reference external" href="https://members-ng.iracing.com/data/car/assets">https://members-ng.iracing.com/data/car/assets</a>
+:expirationSeconds 900
+:note image paths are relative to <a class="reference external" href="https://images-static.iracing.com/">https://images-static.iracing.com/</a>
+:param export: boolean should the file be exported to JSON
+:return: dict All data retrieved is returned.
+&quot;&quot;&quot;
+try:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 153)</p>
+Unexpected indentation.</div>
+<blockquote>
+raw_data = self._get_resource(&quot;/data/car/assets&quot;)</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>export_path = os.path.join(self.hive_root, self.files_folder, 'cars_assets.json')
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># Car Get
+def get_cars(self, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 166)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot;
+:link <a class="reference external" href="https://members-ng.iracing.com/data/car/get">https://members-ng.iracing.com/data/car/get</a>
+:expirationSeconds 900
+:param export: boolean should the file be exported to JSON
+:return: dict All data retrieved is returned.
+&quot;&quot;&quot;
+try:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 173)</p>
+Unexpected indentation.</div>
+<blockquote>
+raw_data = self._get_resource(&quot;/data/car/get&quot;)</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>export_path = os.path.join(self.hive_root, self.files_folder, 'cars.json')
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># CarClass
+def get_carclass(self, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 186)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>&quot;&quot;&quot;</dt>
+<dd>:link <a class="reference external" href="https://members-ng.iracing.com/data/carclass/get">https://members-ng.iracing.com/data/carclass/get</a>
+:expirationSeconds 900
+:param export: boolean should the file be exported to JSON
+:return: dict All data retrieved is returned.
+&quot;&quot;&quot;</dd>
+<dt>try:</dt>
+<dd>raw_data = self._get_resource(&quot;/data/carclass/get&quot;)</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>export_path = os.path.join(self.hive_root, self.files_folder, 'carclass.json')
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p>##### CONSTANTS #####</p>
+<p>##### HOSTED #####</p>
+<p>##### LEAGUE ACTIONS #####</p>
+<p># cust_league_sessions
+def league_cust_league_sessions(self, mine=False, package_id=None, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 212)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot;
+:link <a class="reference external" href="https://members-ng.iracing.com/data/league/cust_league_sessions">https://members-ng.iracing.com/data/league/cust_league_sessions</a>
+:expirationSeconds 900
+:param mine: (boolean) If true, return only sessions created by this user.
+:param package_id: (number) If set, return only sessions using this car or track package ID.
+:param export: boolean should the file be exported to JSON
+:return: dict All data retrieved is returned.
+&quot;&quot;&quot;
+try:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 221)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>payload = {&quot;mine&quot;: mine}
+if package_id:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 223)</p>
+Unexpected indentation.</div>
+<blockquote>
+payload[&quot;package_id&quot;] = package_id</blockquote>
+<p>raw_data = self._get_resource(&quot;/data/league/cust_league_sessions&quot;, payload=payload)</p>
+</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;league_cust_league_sessions.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+</blockquote>
+<p># directory
+def get_league_directory(self, search=&quot;&quot;, tag=&quot;&quot;, restrict_to_member=False, restrict_to_recruiting=False,</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 236)</p>
+Unexpected indentation.</div>
+<blockquote>
+<blockquote>
+restrict_to_friends=False, restrict_to_watched=False, minimum_roster_count=0,
+maximum_roster_count=999, lowerbound=1, upperbound=None, sort=None, order=&quot;asc&quot;, export=False):</blockquote>
+<p>&quot;&quot;&quot;
+:link <a class="reference external" href="https://members-ng.iracing.com/data/league/directory">https://members-ng.iracing.com/data/league/directory</a>
+:param search: (string) Will search against league name, description, owner, and league ID.
+:param tag: (string) One or more tags, comma-separated.
+:param restrict_to_member: (boolean) If true include only leagues for which customer is a member.
+:param restrict_to_recruiting:(boolean) If true include only leagues which are recruiting.
+:param restrict_to_friends: (boolean) If true include only leagues owned by a friend.
+:param restrict_to_watched: (boolean) If true include only leagues owned by a watched member.
+:param minimum_roster_count:(number) If set include leagues with at least this number of members.
+:param maximum_roster_count: (number) If set include leagues with no more than this number of members.
+:param lowerbound: (number) First row of results to return. Defaults to 1.
+:param upperbound:(number) Last row of results to return. Defaults to lowerbound + 39.
+:param sort: (string) One of relevance, leaguename, displayname, rostercount. displayname is owners's name. Defaults to relevance.
+:param order: (string) One of asc or desc. Defaults to asc.
+:param export: boolean should the file be exported to JSON
+:return: dict All data retrieved is returned.
+&quot;&quot;&quot;
+try:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 256)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>params = locals()
+payload = {}
+for x in params.keys():</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 259)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>if x != &quot;self&quot;:</dt>
+<dd>payload[x] = params[x]</dd>
+</dl>
+</blockquote>
+<p>raw_data = self._get_resource(&quot;/data/league/directory&quot;, payload=payload)</p>
+</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>export_path = os.path.join(self.hive_root, self.files_folder, 'league_directory.json')
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># get
+def league_get(self, league_id=None, include_licenses=False, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 273)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot;
+:link <a class="reference external" href="https://members-ng.iracing.com/data/league/get">https://members-ng.iracing.com/data/league/get</a>
+:param league_id: (number)
+:param include_licenses: (boolean) For faster responses, only request when necessary.
+:param export: boolean should the file be exported to JSON
+:return: dict All data retrieved is returned.
+&quot;&quot;&quot;
+try:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 281)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>if not league_id:</dt>
+<dd>raise RuntimeError(&quot;Please supply a league_id&quot;)</dd>
+</dl>
+<p>payload = {&quot;league_id&quot;: league_id, &quot;include_licenses&quot;: include_licenses}
+raw_data = self._get_resource(&quot;/data/league/get&quot;, payload=payload)</p>
+</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;<a href="#system-message-1"><span class="problematic" id="problematic-1">league_</span></a>&quot; + str(league_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># get_points_systems
+def league_get_points_systems(self, league_id, season_id=None, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 297)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot;
+:link <a class="reference external" href="https://members-ng.iracing.com/data/league/get_points_systems">https://members-ng.iracing.com/data/league/get_points_systems</a>
+:param league_id: (number)
+:param season_id: (number) If included and the season is using custom points (points_system_id:2) then the custom points option is included in the returned list. Otherwise the custom points option is not returned.
+:param export: boolean should the file be exported to JSON
+:return: dict All data retrieved is returned.
+&quot;&quot;&quot;
+try:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 305)</p>
+Unexpected indentation.</div>
+<blockquote>
+payload = {&quot;league_id&quot;: league_id}
+raw_data = self._get_resource(&quot;/data/league/get_points_systems&quot;, payload=payload)</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;league_points_systems_%d.json&quot; % (league_id)
+export_path = os.path.join(self.hive_root, self.files_folder)
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># membership</p>
+<p># seasons
+def league_seasons(self, league_id, retired=False, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 321)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>try:</dt>
+<dd>payload = {&quot;league_id&quot;: league_id, &quot;retired&quot;: retired}
+raw_data = self._get_resource(&quot;/data/league/seasons&quot;, payload=payload)</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;<a href="#system-message-2"><span class="problematic" id="problematic-2">league_seasons_</span></a>&quot; + str(league_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># season_standings
+def league_season_standings(self, league_id, season_id, car_class_id=None, car_id=None, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 336)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>try:</dt>
+<dd><p class="first">payload = {&quot;league_id&quot;: league_id, &quot;season_id&quot;: season_id}
+if car_class_id:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 339)</p>
+Unexpected indentation.</div>
+<blockquote>
+payload[&quot;car_class_id&quot;] = car_class_id</blockquote>
+<dl class="docutils">
+<dt>if car_id:</dt>
+<dd>payload[&quot;car_id&quot;] = car_id</dd>
+</dl>
+<p class="last">raw_data = self._get_resource(&quot;/data/league/season_standings&quot;, payload=payload)</p>
+</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;league_season_standings_%d_%d.json&quot; % (league_id, season_id)
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+</blockquote>
+<p># season_sessions
+def league_season_sessions(self, league_id, season_id, results_only=False, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 354)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>try:</dt>
+<dd><dl class="first docutils">
+<dt>payload = {</dt>
+<dd>&quot;league_id&quot;: league_id,
+&quot;season_id&quot;: season_id,
+&quot;results_only&quot;: results_only,</dd>
+</dl>
+<p class="last">}
+raw_data = self._get_resource(&quot;/data/league/season_sessions&quot;, payload=payload)</p>
+</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;league_season_sessions_%d_%d.json&quot; %(league_id, season_id)
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p>##### LOOKUP #####</p>
+<p>##### MEMBER #####</p>
+<p># awards</p>
+<p># chart_data
+def member_chart_data(self, cust_id=None, category_id=2, chart_type=1, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 381)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot; Member Chart Data returns a two point dictionary that can be used to plot data.
+:param cust_id - If none returns that for the login?
+:param category_id - Road, Oval etc as a number
+:param chart_type ?
+:param export - export a json file with the name member_chart_data_category_chart.json
+:return dictionary
+&quot;&quot;&quot;
+cust_id = self.getCustID(cust_id)</p>
+<p>try:</p>
+<blockquote>
+<p>payload = {&quot;category_id&quot;: category_id, &quot;chart_type&quot;: chart_type}
+if cust_id:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 394)</p>
+Unexpected indentation.</div>
+<blockquote>
+payload[&quot;cust_id&quot;] = cust_id</blockquote>
+<p>raw_data = self._get_resource(&quot;/data/member/chart_data&quot;, payload=payload)</p>
+</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check User ID&quot;)
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = 'member_chart_data_%d_cat%d_chart%d.json' % (cust_id, category_id, chart_type)
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data['data'])</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># get
+def member_get(self, cust_id=None, include_licenses=False, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 410)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot;
+:link - <a class="reference external" href="https://members-ng.iracing.com/data/member/get">https://members-ng.iracing.com/data/member/get</a>
+:expirationSeconds - 900
+:param cust_id: number - required - note&quot;: &quot;?cust_ids=2,3,4
+:param include_licenses: boolean
+:param export: boolean - export to json
+:return:
+&quot;&quot;&quot;</p>
+<p>cust_id = self.getCustID(cust_id)</p>
+<dl class="docutils">
+<dt>try:</dt>
+<dd>payload = {&quot;cust_ids&quot;: cust_id, &quot;include_licenses&quot;: include_licenses}
+raw_data = self._get_resource(&quot;/data/member/get&quot;, payload=payload)</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check User ID&quot;)
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;<a href="#system-message-3"><span class="problematic" id="problematic-3">member_</span></a>&quot; + str(cust_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># info
+def member_info(self, cust_id=None, export=False):</p>
+<blockquote>
+<p>cust_id = self.getCustID(cust_id)
+try:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 440)</p>
+Unexpected indentation.</div>
+<blockquote>
+payload = {&quot;cust_id&quot;: cust_id}
+raw_data = self._get_resource(&quot;/data/member/info&quot;, payload=payload)</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check User ID&quot;)
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;<a href="#system-message-4"><span class="problematic" id="problematic-4">member_info_</span></a>&quot; + str(cust_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># participation credits</p>
+<p># profile</p>
+<p>##### RESULTS #####</p>
+<p># get
+def result(self, subsession_id=None, include_licenses=False, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 461)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot;Returns a dictionary of the lap data for the given sub session id&quot;&quot;&quot;</p>
+<dl class="docutils">
+<dt>if not subsession_id:</dt>
+<dd>raise RuntimeError(&quot;Please supply a subsession_id&quot;)</dd>
+<dt>try:</dt>
+<dd><dl class="first docutils">
+<dt>payload = {</dt>
+<dd>&quot;subsession_id&quot;: subsession_id,
+&quot;include_licenses&quot;: include_licenses}</dd>
+</dl>
+<p class="last">raw_data = self._get_resource(&quot;/data/results/get&quot;, payload=payload)
+self.printData(raw_data)</p>
+</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;<a href="#system-message-5"><span class="problematic" id="problematic-5">result_</span></a>&quot; + str(subsession_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+<p># dictionary of the lap data for the given sub session id.</p>
+</blockquote>
+<p># event_log
+def result_event_log(self, subsession_id=None, simsession_number=0, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 489)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot;Returns a dictionary of the lap data for the given sub session id&quot;&quot;&quot;</p>
+<dl class="docutils">
+<dt>if not subsession_id:</dt>
+<dd>raise RuntimeError(&quot;Please supply a subsession_id&quot;)</dd>
+<dt>try:</dt>
+<dd><dl class="first docutils">
+<dt>payload = {</dt>
+<dd>&quot;subsession_id&quot;: subsession_id,
+&quot;simsession_number&quot;: simsession_number,</dd>
+</dl>
+<p>}</p>
+<p class="last">raw_data = self._get_resource(&quot;/data/results/event_log&quot;, payload=payload)</p>
+</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;result_event_log&quot; + str(subsession_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+chunks = self._get_chunks(raw_data[&quot;chunk_info&quot;])
+self.rawToJson(export_path, chunks)</dd>
+</dl>
+<p>return chunks</p>
+</blockquote>
+<p># lap_chart_data
+def result_lap_chart_data(self, subsession_id=None, simsession_number=0, cust_id=None, team_id=None, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 516)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot;Returns a dictionary of the lap data for the given sub session id&quot;&quot;&quot;</p>
+<dl class="docutils">
+<dt>if not subsession_id:</dt>
+<dd>raise RuntimeError(&quot;Please supply a subsession_id&quot;)</dd>
+<dt>try:</dt>
+<dd><dl class="first docutils">
+<dt>payload = {</dt>
+<dd>&quot;subsession_id&quot;: subsession_id,
+&quot;simsession_number&quot;: simsession_number,</dd>
+</dl>
+<p>}
+if team_id:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 527)</p>
+Unexpected indentation.</div>
+<blockquote>
+payload[&quot;team_id&quot;] = team_id</blockquote>
+<dl class="docutils">
+<dt>else:</dt>
+<dd>payload[&quot;cust_id&quot;] = self.getCustID(cust_id)</dd>
+</dl>
+<p class="last">raw_data = self._get_resource(&quot;/data/results/lap_chart_data&quot;, payload=payload)
+self.printData(raw_data)</p>
+</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;<a href="#system-message-6"><span class="problematic" id="problematic-6">result_lap_chart_data_</span></a>&quot; + str(subsession_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+chunks = self._get_chunks(raw_data[&quot;chunk_info&quot;])
+self.rawToJson(export_path, chunks)</dd>
+</dl>
+<p>return chunks</p>
+<p># dictionary of the event/incident data for the given sub session id.</p>
+</blockquote>
+<p># lap_data
+def result_lap_data(self, subsession_id=None, simsession_number=0, cust_id=None, team_id=None, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 550)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot;Returns a dictionary of the lap data for the given sub session id&quot;&quot;&quot;</p>
+<dl class="docutils">
+<dt>if not subsession_id:</dt>
+<dd>raise RuntimeError(&quot;Please supply a subsession_id&quot;)</dd>
+<dt>try:</dt>
+<dd><dl class="first docutils">
+<dt>payload = {</dt>
+<dd>&quot;subsession_id&quot;: subsession_id,
+&quot;simsession_number&quot;: simsession_number,</dd>
+</dl>
+<p>}
+if team_id:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 561)</p>
+Unexpected indentation.</div>
+<blockquote>
+payload[&quot;team_id&quot;] = team_id</blockquote>
+<dl class="docutils">
+<dt>else:</dt>
+<dd>payload[&quot;cust_id&quot;] = self.getCustID(cust_id)</dd>
+</dl>
+<p class="last">raw_data = self._get_resource(&quot;/data/results/lap_data&quot;, payload=payload)
+chunks = self._get_chunks(raw_data[&quot;chunk_info&quot;])</p>
+</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;<a href="#system-message-7"><span class="problematic" id="problematic-7">result_lap_data_</span></a>&quot; + str(subsession_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, chunks)</dd>
+</dl>
+<p>return chunks</p>
+</blockquote>
+<p># search_hosted
+def result_search_hosted(self, start_range_begin=None, start_range_end=None, finish_range_begin=None,</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 581)</p>
+Unexpected indentation.</div>
+<blockquote>
+<blockquote>
+finish_range_end=None, cust_id=None, host_cust_id=None, session_name=None, league_id=None,
+league_season_id=None, car_id=None, track_id=None, category_ids=None, export=False):</blockquote>
+<p>&quot;&quot;&quot;
+:link <a class="reference external" href="https://members-ng.iracing.com/data/results/search_hosted">https://members-ng.iracing.com/data/results/search_hosted</a>
+Hosted and league sessions.
+Maximum time frame of 90 days. Results split into one or more files with chunks of results.
+For scraping results the most effective approach is to keep track of the maximum end_time found during a
+search then make the subsequent call using that date/time as the finish_range_begin and skip any subsessions
+that are duplicated.  Results are ordered by subsessionid which is a proxy for start time.
+Requires one of: start_range_begin, finish_range_begin.
+Requires one of: cust_id, host_cust_id, session_name.
+expirationSeconds in 900
+:param start_range_begin: string - Session start times. ISO-8601 UTC time zero offset: 2022-04-01T15:45Z.
+:param start_range_end: string - ISO-8601 UTC time zero offset: 2022-04-01T15:45Z. Exclusive. May be omitted if start_range_begin is less than 90 days in the past.
+:param finish_range_begin: string - Session finish times. ISO-8601 UTC time zero offset: 2022-04-01T15:45Z.
+:param finish_range_end: string - ISO-8601 UTC time zero offset: 2022-04-01T15:45Z. Exclusive. May be omitted if finish_range_begin is less than 90 days in the past.
+:param cust_id: number - The participant's customer ID.
+:param host_cust_id: number - The host's customer ID.
+:param session_name: string - Part or all of the session's name.
+:param league_id: number - Include only results for the league with this ID.
+:param league_season_id: number - Include only results for the league season with this ID.
+:param car_id: number - One of the cars used by the session.
+:param track_id: number - The ID of the track used by the session.
+:param category_ids: numbers - Track categories to include in the search.  Defaults to all. ?category_ids=1,2,3,4
+:param export: boolean - export to json
+:return:
+&quot;&quot;&quot;
+try:</p>
+<blockquote>
+<p># Default to 90 days ago if no date set
+if not (start_range_begin or finish_range_begin):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 613)</p>
+Unexpected indentation.</div>
+<blockquote>
+tod = datetime.datetime.now()
+d = datetime.timedelta(days=30)
+start_range_begin = (tod - d).replace(second=0).replace(microsecond=0).replace(tzinfo=datetime.timezone.utc).isoformat()
+print(start_range_begin)</blockquote>
+<dl class="docutils">
+<dt>if not (cust_id or host_cust_id):</dt>
+<dd>raise RuntimeError(&quot;Please supply either cust_id or host_cust_id&quot;)</dd>
+</dl>
+<p>params = locals()
+payload = {}
+for x in params.keys():</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 624)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>if x != &quot;self&quot; and params[x]:</dt>
+<dd>payload[x] = params[x]</dd>
+</dl>
+</blockquote>
+<p>print(payload)
+raw_data = self._get_resource(&quot;/data/results/search_hosted&quot;, payload=payload)
+print(raw_data)
+chunks = self._get_chunks(raw_data[&quot;data&quot;][&quot;chunk_info&quot;])</p>
+</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;result_search_hosted.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, chunks)</dd>
+</dl>
+<p>return chunks</p>
+</blockquote>
+<p># search_series</p>
+<p># season_results</p>
+<p>##### SEASON #####</p>
+<p># list
+def get_season_list(self, season_year, season_quarter, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 651)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>try:</dt>
+<dd>payload = {&quot;season_year&quot;: season_year, &quot;season_quarter&quot;: season_quarter}
+raw_data = self._get_resource(&quot;/data/season/list&quot;, payload=payload)</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>except ConnectionError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;season_list_%d_%d.json&quot; % (season_year, season_quarter)
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># race_guide</p>
+<p>##### SERIES #####</p>
+<p># assets</p>
+<p># get
+def get_series(self, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 677)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>try:</dt>
+<dd>raw_data = self._get_resource(&quot;/data/series/get&quot;)</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>export_path = os.path.join(self.hive_root, self.files_folder, 'series.json')
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># past_seasons</p>
+<p># seasons
+def series_seasons(self, include_series=False, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 693)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>try:</dt>
+<dd>payload = {&quot;include_series&quot;: include_series}
+raw_data = self._get_resource(&quot;/data/series/seasons&quot;, payload=payload)</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>except ConnectionError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>export_path = os.path.join(self.hive_root, self.files_folder, 'series_seasons.json')
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># stats_series</p>
+<p>##### STATS #####</p>
+<p># member_bests</p>
+<p># member_career
+def stats_member_career(self, cust_id=None, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 718)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot; Returns a summary dictionary of the member stats for each year of participation
+Empty categories are excluded.&quot;&quot;&quot;</p>
+<p>cust_id = self.getCustID(cust_id)
+try:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 723)</p>
+Unexpected indentation.</div>
+<blockquote>
+payload = {&quot;cust_id&quot;: cust_id}
+raw_data = self._get_resource(&quot;/data/stats/member_career&quot;, payload=payload)</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check User ID&quot;)
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;<a href="#system-message-8"><span class="problematic" id="problematic-8">member_stats_career_</span></a>&quot; + str(cust_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data['stats'])</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># member_division</p>
+<p># recent_races
+def member_recent_races(self, cust_id=None, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 740)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot; Returns a summary dictionary of the member stats for each year category.&quot;&quot;&quot;</p>
+<p>cust_id = self.getCustID(cust_id)
+try:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 744)</p>
+Unexpected indentation.</div>
+<blockquote>
+payload = {&quot;cust_id&quot;: cust_id}
+raw_data = self._get_resource(&quot;/data/stats/member_recent_races&quot;, payload=payload)</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check User ID&quot;)
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;<a href="#system-message-9"><span class="problematic" id="problematic-9">member_recent_races_</span></a>&quot; + str(cust_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data['races'])</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># member_summary
+def stats_member_summary(self, cust_id=None, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 758)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot; Returns a summary dictionary of the members stats
+:param cust_id int iRacing cust_id as found in the profile.
+:returns dictionary {'this_year': {'num_official_sessions': x, 'num_league_sessions': x, 'num_official_wins': x, 'num_league_wins': x}, 'cust_id': cust_id}
+&quot;&quot;&quot;
+cust_id = self.getCustID(cust_id)
+try:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 764)</p>
+Unexpected indentation.</div>
+<blockquote>
+payload = {&quot;cust_id&quot;: cust_id}
+raw_data = self._get_resource(&quot;/data/stats/member_summary&quot;, payload=payload)</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check User ID&quot;)
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;<a href="#system-message-10"><span class="problematic" id="problematic-10">member_stats_summary_</span></a>&quot; + str(cust_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># member_yearly
+def stats_member_yearly(self, cust_id=None, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 779)</p>
+Unexpected indentation.</div>
+<blockquote>
+<p>&quot;&quot;&quot; Returns a summary dictionary of the member stats for each year category.&quot;&quot;&quot;</p>
+<p>cust_id = self.getCustID(cust_id)
+try:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 783)</p>
+Unexpected indentation.</div>
+<blockquote>
+payload = {&quot;cust_id&quot;: cust_id}
+raw_data = self._get_resource(&quot;/data/stats/member_yearly&quot;, payload=payload)</blockquote>
+<dl class="docutils">
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check User ID&quot;)
+return None</dd>
+<dt>if export:</dt>
+<dd>filename = &quot;<a href="#system-message-11"><span class="problematic" id="problematic-11">member_stats_yearly_</span></a>&quot; + str(cust_id) + &quot;.json&quot;
+export_path = os.path.join(self.hive_root, self.files_folder, filename)
+self.rawToJson(export_path, raw_data['stats'])</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># season_driver_standings</p>
+<p># season_supersession_standings</p>
+<p># season_team_standings</p>
+<p># season_tt_standings</p>
+<p># season_tt_results</p>
+<p># season_qualify_results</p>
+<p># world_records</p>
+<p>##### TEAM #####</p>
+<p># get</p>
+<p>##### TIME ATTACK #####</p>
+<p># member_season_results</p>
+<p>##### TRACKS #####</p>
+<p># assets
+def get_tracks_assets(self, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 822)</p>
+Unexpected indentation.</div>
+<blockquote>
+<dl class="docutils">
+<dt>try:</dt>
+<dd>raw_data = self._get_resource(&quot;/data/track/assets&quot;)</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>export_path = os.path.join(self.hive_root, self.files_folder, 'tracks_assets.json')
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+<p># get
+def get_tracks(self, export=False):</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 836)</p>
+Unexpected indentation.</div>
+<blockquote class="last">
+<dl class="docutils">
+<dt>try:</dt>
+<dd>raw_data = self._get_resource(&quot;/data/track/get&quot;)</dd>
+<dt>except RuntimeError as e:</dt>
+<dd>print(&quot;Check Resource call&quot;, str(e))
+return None</dd>
+<dt>if export:</dt>
+<dd>export_path = os.path.join(self.hive_root, self.files_folder, 'tracks.json')
+self.rawToJson(export_path, raw_data)</dd>
+</dl>
+<p>return raw_data</p>
+</blockquote>
+</dd>
+</dl>
+<div class="system-messages section">
+<h1>Docutils System Messages</h1>
+<div class="system-message" id="system-message-1">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 290); <em><a href="#problematic-1">backlink</a></em></p>
+Unknown target name: &quot;league&quot;.</div>
+<div class="system-message" id="system-message-2">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 329); <em><a href="#problematic-2">backlink</a></em></p>
+Unknown target name: &quot;league_seasons&quot;.</div>
+<div class="system-message" id="system-message-3">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 430); <em><a href="#problematic-3">backlink</a></em></p>
+Unknown target name: &quot;member&quot;.</div>
+<div class="system-message" id="system-message-4">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 448); <em><a href="#problematic-4">backlink</a></em></p>
+Unknown target name: &quot;member_info&quot;.</div>
+<div class="system-message" id="system-message-5">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 479); <em><a href="#problematic-5">backlink</a></em></p>
+Unknown target name: &quot;result&quot;.</div>
+<div class="system-message" id="system-message-6">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 539); <em><a href="#problematic-6">backlink</a></em></p>
+Unknown target name: &quot;result_lap_chart_data&quot;.</div>
+<div class="system-message" id="system-message-7">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 573); <em><a href="#problematic-7">backlink</a></em></p>
+Unknown target name: &quot;result_lap_data&quot;.</div>
+<div class="system-message" id="system-message-8">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 731); <em><a href="#problematic-8">backlink</a></em></p>
+Unknown target name: &quot;member_stats_career&quot;.</div>
+<div class="system-message" id="system-message-9">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 751); <em><a href="#problematic-9">backlink</a></em></p>
+Unknown target name: &quot;member_recent_races&quot;.</div>
+<div class="system-message" id="system-message-10">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 772); <em><a href="#problematic-10">backlink</a></em></p>
+Unknown target name: &quot;member_stats_summary&quot;.</div>
+<div class="system-message" id="system-message-11">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">C:\Users\Chris Davies-Barnard\CloudStation\ByteInsight\iRacingInsights\includes\iRacingClient.py</tt>, line 791); <em><a href="#problematic-11">backlink</a></em></p>
+Unknown target name: &quot;member_stats_yearly&quot;.</div>
+</div>
+</div>
+</body>
+</html>

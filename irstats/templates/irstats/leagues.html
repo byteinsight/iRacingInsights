@@ -1,0 +1,38 @@
+{% extends "iRacingInsights/base.html" %}
+{% load static %}
+
+{% block title %}iRacing Stats | {{ block.super }}{% endblock %}
+{% block meta-description %}Member Profile{% endblock %}
+{% block meta-keywords %}{% endblock %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block content_main %}
+
+    <h1 class="display-4 text-uppercase">Leagues</h1>
+
+    {% if league_listing %}
+    <table class="table">
+        <thead>
+            <th>Name</th>
+            <th>URL</th>
+            <th>About</th>
+            <th>Roster</th>
+        </thead>
+        <tbody>
+            {% for league in league_listing %}
+
+                <tr>
+                    <th title="{{  league.league_id }}"><a href="/league/{{ league.league_id }}">{{ league.league_name }}</a></th>
+                    <td><a href="http://{{ league.url }}">{{ league.url }}</a></td>
+                    <td>{{ league.about }}</td>
+                    <td>{{  league.roster_count }}</td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+    {%  endif %}
+
+{%  endblock %}
+
